@@ -47,16 +47,16 @@ yargs.command({
 //create read command
 yargs.command({
     command: 'read',
-    description: 'Removing a Note!',
+    description: 'Reading a Note!',
     builder: {
-        Title: {
+        title: {
             describe: 'Notes Title',
             demandOption: true,
             type: 'string'
         }
     },
-    handler: function() {
-        console.log('Reading the files in the note !')
+    handler (argv) {
+        notes.readNote(argv.title)
     }
 })
 

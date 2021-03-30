@@ -1,16 +1,13 @@
 const fs = require('fs')
 const chalk = require('Chalk')
 
-const getNote = function () {
-    return 'Your note is ... !'
-}
-
 
 const addNote = (title, body) => {
     const notes = loadNotes()
-    const duplicateNotes = notes.filter((note) => note.title === title)
+    // const duplicateNotes = notes.filter((note) => note.title === title)
+    const duplicateNote =  notes.find((note) => note.title === title)
 
-    if (duplicateNotes.length === 0) {
+    if (duplicateNote === undefined) {
         notes.push({
             title: title,
             body: body
@@ -39,18 +36,6 @@ const removeNote = (title) => {
         console.log(chalk.red.inverse("No note with " + title + " Was found !"))
     }
 
-    // saveNotes(notes2Keep)
-
-
-    /*
-        try {
-            fs.unlinkSync('notes.json')
-            console.log('File removed')
-        } catch(err) {
-            console.error(err)
-        }
-    */
-
 }
 
 
@@ -62,7 +47,7 @@ const saveNotes = (notes) => {
 
 const listNotes = () => {
     const notes = loadNotes()
-    console.log(chalk.inverse('Your notes'))
+    console.log(chalk.blue.inverse('Your notes'))
     notes.forEach((note) => {
         console.log(note.title)
     })
@@ -80,11 +65,25 @@ const loadNotes = () => {
 
 }
 
-module.exports = {
-    getNote: getNote,
-    addNote: addNote,
-    removeNote: removeNote,
-    listNotes: listNotes
+
+const readNote = (title) => {
+    const notes = loadNotes() // load the notes into the file
+    const note = notes.find((note) => note.title === title)
+
+    if (note) {
+        console.log(chalk.gray.inverse(note.title))
+        console.log(note.body)
+    } else {
+        console.log(chalk.red.inverse("Note " + title + " was not found"))
+    }
+
 }
 
-// Video 10 -- List Note
+module.exports = {
+    addNote: addNote,
+    removeNote: removeNote,
+    listNotes: listNotes,
+    readNote: readNote
+}
+
+
