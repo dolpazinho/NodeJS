@@ -5,13 +5,12 @@ const getNote = function () {
     return 'Your note is ... !'
 }
 
-const addNote = function (title, body) {
-    const notes = loadNotes()
-    const duplicateNotes = notes.filter(function (note){
-        return note.title === title
-    })
 
-    if(duplicateNotes.length=== 0) {
+const addNote = (title, body) => {
+    const notes = loadNotes()
+    const duplicateNotes = notes.filter((note) => note.title === title)
+
+    if (duplicateNotes.length === 0) {
         notes.push({
             title: title,
             body: body
@@ -24,15 +23,13 @@ const addNote = function (title, body) {
 
 }
 
-const removeNote = function (title) {
+const removeNote = (title) => {
 
-    const  notes = loadNotes()
+    const notes = loadNotes()
 
-    const notes2Keep = notes.filter(function (note){
-        return note.title !== title
-    })
+    const notes2Keep = notes.filter((note) => note.title !== title)
 
-    if(notes.length > notes2Keep.length){
+    if (notes.length > notes2Keep.length) {
         notes.push({
             Title: title
         })
@@ -45,26 +42,34 @@ const removeNote = function (title) {
     // saveNotes(notes2Keep)
 
 
-/*
-    try {
-        fs.unlinkSync('notes.json')
-        console.log('File removed')
-    } catch(err) {
-        console.error(err)
-    }
-*/
+    /*
+        try {
+            fs.unlinkSync('notes.json')
+            console.log('File removed')
+        } catch(err) {
+            console.error(err)
+        }
+    */
 
 }
 
 
-
-const saveNotes = function (notes) {
+const saveNotes = (notes) => {
     const dataJSON = JSON.stringify(notes)
     fs.writeFileSync('notes.json', dataJSON)
 }
 
-const loadNotes = function() {
 
+const listNotes = () => {
+    const notes = loadNotes()
+    console.log(chalk.inverse('Your notes'))
+    notes.forEach((note) => {
+        console.log(note.title)
+    })
+}
+
+
+const loadNotes = () => {
     try {
         const dataBuffer = fs.readFileSync('notes.json')
         const dataJSON = dataBuffer.toString()
@@ -78,5 +83,8 @@ const loadNotes = function() {
 module.exports = {
     getNote: getNote,
     addNote: addNote,
-    removeNote: removeNote
+    removeNote: removeNote,
+    listNotes: listNotes
 }
+
+// Video 10 -- List Note

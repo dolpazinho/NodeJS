@@ -48,6 +48,13 @@ yargs.command({
 yargs.command({
     command: 'read',
     description: 'Removing a Note!',
+    builder: {
+        Title: {
+            describe: 'Notes Title',
+            demandOption: true,
+            type: 'string'
+        }
+    },
     handler: function() {
         console.log('Reading the files in the note !')
     }
@@ -57,8 +64,9 @@ yargs.command({
 yargs.command({
     command: 'list',
     description: 'Listing all the Note',
-    handler: function() {
-        console.log('Listing out all the note.!')
+    handler() {
+        notes.listNotes()
+        /*console.log('Listing out all the note.!')*/
     }
 })
 yargs.parse()
@@ -83,5 +91,3 @@ if (command=== 'add') {
 console.log(process.argv)
 console.log(yargs.argv)*/
 
-
-// Lecture 7 (Removing a Note) 10:20
