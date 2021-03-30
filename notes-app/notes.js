@@ -7,6 +7,8 @@ const addNote = (title, body) => {
     // const duplicateNotes = notes.filter((note) => note.title === title)
     const duplicateNote =  notes.find((note) => note.title === title)
 
+    debugger
+
     if (duplicateNote === undefined) {
         notes.push({
             title: title,
@@ -15,7 +17,7 @@ const addNote = (title, body) => {
         saveNotes(notes)
         console.log(chalk.blue.inverse('New notes Added !'))
     } else {
-        console.log('Note title already taken. Please use another Title !')
+        console.log(chalk.gray.inverse('Note title already taken. Please use another Title !'))
     }
 
 }
